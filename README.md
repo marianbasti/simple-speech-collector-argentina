@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# A react app for collecting speech-text pairs
+Create speech datasets easily with a user-friendly interface by recording audio for a list of phrases.
 
-## Getting Started
+## Setup
 
-First, run the development server:
+### Install
+
+First, clone the repository and install the necessary dependencies:
+
+```bash
+git clone https://github.com/HPC-IF/simple-speech-collector
+cd simple-speech-collector
+npm install
+```
+
+### Start the Server
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to access the interface.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Place a `phrases.txt` file in the `./public` directory to set the phrases that will be displayed in the interface.
+2. For each phrase, you can record and play back the audio. You can submit multiple audio samples for each phrase.
+3. Each time you access the page, you are assigned a random speaker ID.
 
-## Learn More
+The output dataset is structured as follows:
 
-To learn more about Next.js, take a look at the following resources:
+```
+/dataset
+├── wavs
+│   ├── speaker1_0.wav
+│   ├── speaker1_1.wav
+│   ├── speaker1_2.wav
+│   ├── speaker2_0.wav
+│   ├── speaker2_1.wav
+│   └── ...
+└── metadata.txt
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The `metadata.txt` file will have the following format:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+speaker1_0|First phrase|First phrase
+speaker1_1|Second phrase|Second phrase
+speaker1_2|Third phrase|Third phrase
+speaker2_0|First phrase|First phrase
+speaker2_1|Second phrase|Second phrase
+speaker2_2|Third phrase|Third phrase
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This format is widely used for model training.
