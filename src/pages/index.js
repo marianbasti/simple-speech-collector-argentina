@@ -51,7 +51,7 @@ const PhraseNavigation = ({ currentPhraseIndex, phrases, previousPhrase, nextPhr
 );
 
 const PhraseDisplay = ({ phrase, isRecorded }) => (
-  <div className={`p-6 bg-white rounded-lg shadow-sm border ${isRecorded ? 'bg-green-50' : ''}`}>
+  <div className={`p-6 bg-white rounded-lg shadow-sm border ${isRecorded ? 'bg-green-50 border-green-400' : ''}`}>
     <p className="text-lg font-medium text-center text-gray-800">
       {phrase}
     </p>
