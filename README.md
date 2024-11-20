@@ -1,5 +1,6 @@
 # A react app for collecting speech-text pairs
 Create speech datasets easily with a user-friendly interface by recording audio for a list of phrases.
+![image](https://github.com/user-attachments/assets/6bc49e04-183c-4d52-8e93-2389bdd7ccb6)
 
 ## Setup
 
