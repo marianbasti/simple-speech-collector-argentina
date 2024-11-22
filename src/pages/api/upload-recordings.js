@@ -21,10 +21,10 @@ export default async function handler(req, res) {
     });
 
     // Parse the form data
-    const files = await new Promise((resolve, reject) => {
+    const [fields, files] = await new Promise((resolve, reject) => {
       form.parse(req, (err, fields, files) => {
         if (err) reject(err);
-        resolve(files);
+        resolve([fields, files]);
       });
     });
 
@@ -49,7 +49,17 @@ export default async function handler(req, res) {
       let metadataContent = await fs.readFile(metadata.filepath, 'utf8');
       // Remove .wav extension from filenames in metadata content
       metadataContent = metadataContent.replace(/\.wav/g, '');
-      await fs.appendFile(metadataPath, metadataContent + '\n', 'utf8');
+      
+      // Parse demographics JSON
+      const demographics = JSON.parse(fields.demographics);
+      
+      // Add demographic data to each line
+      const metadataLines = metadataContent.split('\n').filter(line => line.trim());
+      const enhancedMetadata = metadataLines.map(line => 
+        `${line}|${demographics.gender}|${demographics.ageGroup}|${demographics.region}`
+      ).join('\n');
+      
+      await fs.appendFile(metadataPath, enhancedMetadata + '\n', 'utf8');
     }
 
     // Clean up temporary files
